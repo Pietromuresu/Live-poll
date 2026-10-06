@@ -3,7 +3,7 @@
 
 ## Stack 
 - Backend: .NET
-- Frontend: Razor
+- Frontend: Razor(HTML, CSS, JS)
 - Database: SQLlite
 
 ## Funzionamento 
