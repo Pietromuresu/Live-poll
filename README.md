@@ -29,6 +29,38 @@
 
 dotnet run --urls http://localhost:5080
 
+## Setup iniziale
+
+> Sezione aggiunta dopo il colloquio (06/10/2026, ore 15:47).
+
+Prerequisito: .NET 9 SDK (il progetto è `net9.0` e richiede il runtime ASP.NET Core 9).
+Su macOS con Homebrew:
+
+```bash
+brew install dotnet@9
+export PATH="/opt/homebrew/opt/dotnet@9/bin:$PATH"
+dotnet --version   # deve restituire 9.x
+```
+
+Dalla cartella del progetto:
+
+```bash
+# 1. Ripristina i tool locali (dotnet-ef)
+dotnet tool restore
+
+# 2. Installa le dipendenze NuGet
+dotnet restore
+
+# 3. Applica le migrazioni al database SQLite (App_Data/)
+dotnet ef database update
+
+# 4. Avvia l'applicazione
+dotnet run --urls http://localhost:5080
+```
+
+Le migrazioni vengono comunque applicate anche all'avvio dell'app, quindi il passo 3 è facoltativo.
+Una volta avviata: partecipanti su http://localhost:5080/, host su http://localhost:5080/admin.
+
 ## Decisioni implementative 
 
 - Modifica e richiesta dei dati con API questo permette di eseguire un polling ed aggiornare i dati in tempo reale 
