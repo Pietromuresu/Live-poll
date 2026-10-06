@@ -1,0 +1,53 @@
+@page "/polls/{slug}"
+@{
+    ViewData["Title"] = "Poll";
+    var slug = ViewContext.RouteData.Values["slug"]?.ToString() ?? string.Empty;
+}
+
+<div id="participant-poll" class="page-shell participant-poll" data-slug="@slug">
+    <div id="poll-loading" class="state-block" role="status">Caricamento poll...</div>
+
+    <div id="poll-not-found" class="state-block hidden" role="alert">
+        <p>Poll non trovato.</p>
+        <a class="btn btn-secondary" href="/">Torna all’ingresso</a>
+    </div>
+
+    <div id="poll-load-error" class="state-block state-error hidden" role="alert">
+        Non è stato possibile caricare il poll. Controlla la connessione e riprova.
+    </div>
+
+    <div id="participant-content" class="hidden">
+        <header class="participant-poll-header">
+            <h1 id="participant-question"></h1>
+            <p id="participant-identity"></p>
+        </header>
+
+        <div id="connection-warning" class="connection-warning hidden" role="status">
+            Connessione persa, riprovo…
+        </div>
+
+        <section id="poll-question-section" class="panel participant-section hidden" aria-labelledby="participant-question-heading">
+            <h2 id="participant-question-heading">Scegli una risposta</h2>
+            <div id="poll-options" class="poll-options"></div>
+            <p id="vote-error" class="state-error vote-error hidden" role="alert"></p>
+            <button id="submit-vote" class="btn btn-primary" type="button" disabled>Invia voto</button>
+            <p class="vote-note">Dopo l’invio il voto non potrà essere modificato</p>
+        </section>
+
+        <section id="poll-voted-section" class="panel participant-message hidden" aria-live="polite">
+            <h2>Voto inviato!</h2>
+            <p class="results-waiting">In attesa che l’host chiuda la votazione<span class="waiting-dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span></p>
+        </section>
+
+        <section id="poll-closed-section" class="panel participant-message hidden" aria-live="polite">
+            <h2>Votazione chiusa</h2>
+            <p id="not-voted-note" class="not-voted-note hidden">Non hai votato in questo poll</p>
+            <p id="final-results-error" class="state-error hidden" role="alert"></p>
+            <div id="final-results-list" class="results-list"></div>
+        </section>
+    </div>
+</div>
+
+<script src="~/js/storage.js" defer></script>
+<script src="~/js/results.js" defer></script>
+<script src="~/js/poll.js" defer></script>

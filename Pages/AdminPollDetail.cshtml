@@ -1,0 +1,65 @@
+@page "/admin/polls/{slug}"
+@{
+    ViewData["Title"] = "Dettaglio poll";
+    var slug = ViewContext.RouteData.Values["slug"]?.ToString() ?? string.Empty;
+}
+
+<div id="poll-page" class="page-shell poll-detail" data-slug="@slug">
+    <a class="poll-back-link" href="/admin">← Tutti i poll</a>
+
+    <div id="poll-loading" class="state-block" role="status">Caricamento poll...</div>
+
+    <div id="poll-not-found" class="state-block hidden" role="alert">
+        <p>Poll non trovato.</p>
+        <a class="btn btn-secondary" href="/admin">Torna a tutti i poll</a>
+    </div>
+
+    <div id="poll-load-error" class="state-block state-error hidden" role="alert">
+        Errore di rete. Non è stato possibile caricare il poll.
+    </div>
+
+    <div id="poll-content" class="hidden">
+        <header class="poll-detail-header">
+            <h1 id="poll-question"></h1>
+            <span id="poll-status-badge" class="badge"></span>
+        </header>
+
+        <section class="session-key-panel panel" aria-labelledby="session-key-heading">
+            <div>
+                <h2 id="session-key-heading">Codice di sessione</h2>
+                <p id="session-key" class="session-key"></p>
+            </div>
+            <button id="copy-session-key" class="btn btn-secondary" type="button">Copia</button>
+            <p id="participant-instructions" class="participant-instructions"></p>
+        </section>
+
+        <section class="poll-stats" aria-label="Statistiche del poll">
+            <div class="poll-stat">
+                <span class="poll-stat-value" id="participant-count">0</span>
+                <span class="poll-stat-label">Partecipanti</span>
+            </div>
+            <div class="poll-stat">
+                <span class="poll-stat-value" id="vote-count">0</span>
+                <span class="poll-stat-label">Voti</span>
+            </div>
+        </section>
+
+        <div id="connection-warning" class="connection-warning hidden" role="status">
+            Connessione persa, riprovo...
+        </div>
+
+        <div class="poll-controls">
+            <p id="poll-finalized" class="poll-finalized hidden">Risultati definitivi</p>
+            <button id="close-poll" class="btn btn-secondary hidden" type="button">Chiudi votazione</button>
+            <p id="close-error" class="state-error close-error hidden" role="alert"></p>
+        </div>
+
+        <section class="poll-results" aria-labelledby="results-heading">
+            <h2 id="results-heading">Risultati</h2>
+            <div id="results-list" class="results-list"></div>
+        </section>
+    </div>
+</div>
+
+<script src="~/js/results.js" defer></script>
+<script src="~/js/admin-poll.js" defer></script>

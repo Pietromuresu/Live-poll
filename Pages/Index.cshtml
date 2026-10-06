@@ -1,0 +1,32 @@
+@page "/"
+@{
+    ViewData["Title"] = "Partecipa";
+}
+
+<div class="page-shell join-shell">
+    <header class="join-intro">
+        <p class="join-eyebrow">LIVE POLL</p>
+        <h1>Partecipa alla votazione</h1>
+        <p>Inserisci il codice ricevuto dall’host e scegli un nickname per partecipare.</p>
+    </header>
+
+    <form id="join-form" class="panel join-form" novalidate>
+        <div class="form-field">
+            <label for="session-key-input">Codice di sessione</label>
+            <input id="session-key-input" name="sessionKey" type="text" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" aria-describedby="session-key-status" />
+            <p id="session-key-status" class="join-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="form-field">
+            <label for="nickname-input">Nickname</label>
+            <input id="nickname-input" name="nickname" type="text" autocomplete="nickname" disabled aria-describedby="nickname-status" />
+            <p id="nickname-status" class="join-status" role="status" aria-live="polite"></p>
+        </div>
+
+        <p id="join-error" class="state-error join-error hidden" role="alert"></p>
+        <button id="enter-button" class="btn btn-primary" type="submit" disabled>Entra</button>
+    </form>
+</div>
+
+<script src="~/js/storage.js" defer></script>
+<script src="~/js/join.js" defer></script>

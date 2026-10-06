@@ -1,0 +1,54 @@
+@host = http://localhost:5080
+@pollSlug = esempio-domanda-abc123
+@sessionKey = ABC123
+@nickname = alice
+
+### 1) Crea poll
+POST {{host}}/api/polls
+Content-Type: application/json
+
+{
+  "question": "Qual è il tuo colore preferito?",
+  "options": ["Rosso", "Blu", "Verde"]
+}
+
+### 2) Elenco poll
+GET {{host}}/api/polls
+
+### 3) Dettaglio poll
+GET {{host}}/api/polls/{{pollSlug}}
+
+### 4) Trova poll per sessionKey
+GET {{host}}/api/polls/by-key/{{sessionKey}}
+
+### 5) Verifica nickname
+GET {{host}}/api/polls/{{pollSlug}}/participants/{{nickname}}
+
+### 6) Entra nel poll
+POST {{host}}/api/polls/{{pollSlug}}/participants
+Content-Type: application/json
+
+{
+  "nickname": "alice"
+}
+
+### 7) Vota (200: { "hasVoted": true })
+POST {{host}}/api/polls/{{pollSlug}}/votes
+Content-Type: application/json
+
+{
+  "nickname": "alice",
+  "optionId": 1
+}
+
+### 8) Risultati partecipante (403 finché il poll è aperto; disponibili a poll chiuso)
+GET {{host}}/api/polls/{{pollSlug}}/results?nickname={{nickname}}
+
+### 9) Stato host
+GET {{host}}/api/polls/{{pollSlug}}/status
+
+### 10) Chiudi poll
+POST {{host}}/api/polls/{{pollSlug}}/close
+
+### 11) Elimina poll
+DELETE {{host}}/api/polls/{{pollSlug}}

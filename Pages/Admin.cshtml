@@ -1,0 +1,20 @@
+@page "/admin"
+@{
+    ViewData["Title"] = "I tuoi poll";
+}
+
+<div class="page-shell admin-shell">
+    <header class="page-header">
+        <h1>I tuoi poll</h1>
+        <a class="btn btn-primary" href="/admin/new">Nuovo poll</a>
+    </header>
+
+    <section class="panel" aria-live="polite">
+        <div id="admin-list-loading" class="state-block hidden">Caricamento poll...</div>
+        <div id="admin-list-empty" class="state-block hidden">Nessun poll creato. Crea il tuo primo sondaggio.</div>
+        <div id="admin-list-error" class="state-block state-error hidden">Non è stato possibile caricare i poll.</div>
+        <div id="admin-list" class="poll-list" aria-live="polite"></div>
+    </section>
+</div>
+
+<script src="~/js/admin-list.js" defer></script>

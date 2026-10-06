@@ -1,0 +1,30 @@
+@page "/admin/new"
+@{
+    ViewData["Title"] = "Nuovo poll";
+}
+
+<div class="page-shell">
+    <header class="page-header">
+        <h1>Nuovo poll</h1>
+        <a class="btn btn-secondary" href="/admin">Annulla</a>
+    </header>
+
+    <form id="new-poll-form" class="panel poll-form" novalidate>
+        <div class="form-field">
+            <label for="question">Domanda</label>
+            <input id="question" name="question" type="text" autocomplete="off" aria-describedby="question-error" />
+            <p id="question-error" class="field-error hidden">Inserisci una domanda.</p>
+        </div>
+
+        <fieldset class="options-fieldset">
+            <legend>Opzioni</legend>
+            <div id="options-list" class="options-list"></div>
+            <button id="add-option" class="btn btn-secondary" type="button">Aggiungi opzione</button>
+        </fieldset>
+
+        <p id="save-error" class="state-error save-error hidden" role="alert"></p>
+        <button id="save-poll" class="btn btn-primary" type="submit">Salva poll</button>
+    </form>
+</div>
+
+<script src="~/js/admin-new.js" defer></script>
